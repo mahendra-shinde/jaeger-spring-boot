@@ -12,9 +12,5 @@ public class LoanServiceApplication {
 		SpringApplication.run(LoanServiceApplication.class, args);
 	}
 	
-	@Bean
-	public RestTemplate template() {
-		return new RestTemplate();
-	}
 
 }
