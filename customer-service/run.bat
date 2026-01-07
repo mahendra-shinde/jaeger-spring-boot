@@ -1,0 +1,1 @@
+java -javaagent:%USERPROFILE%\\Downloads\\opentelemetry-javaagent-2.23.0.jar -jar target/customer-service-1.0.jar
