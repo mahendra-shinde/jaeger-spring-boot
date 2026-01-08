@@ -6,6 +6,7 @@ public class Customer {
 	private String firstName;
 	private String lastName;
 	private String email;
+	private Address address;
 	
 	public String getCustId() {
 		return custId;
@@ -31,16 +32,25 @@ public class Customer {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Customer(String custId, String firstName, String lastName, String email) {
+	
+	
+	public Customer(String custId, String firstName, String lastName, String email, Address address) {
 		super();
 		this.custId = custId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.address = address;
 	}
 	public Customer() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	
 	
