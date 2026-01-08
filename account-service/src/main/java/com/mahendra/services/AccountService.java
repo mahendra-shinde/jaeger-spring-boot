@@ -31,11 +31,13 @@ public class AccountService {
 	
 	
 	@WithSpan("deposit")
-	public void deposit(@SpanAttribute("acc-no") String accNo, @SpanAttribute("amount")double amount) {
+	public boolean deposit(@SpanAttribute("acc-no") String accNo, @SpanAttribute("amount")double amount) {
 		Account acc = findAccount(accNo);
 		if(acc != null ) {
 			acc.setBalance(acc.getBalance()+amount);
+			return true;
 		}
+		return false;
 	}
 	
 }
