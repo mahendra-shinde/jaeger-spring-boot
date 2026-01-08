@@ -2,6 +2,7 @@ package com.mahendra.services;
 
 import org.springframework.stereotype.Service;
 
+import com.mahendra.exceptions.NonExistingAccountException;
 import com.mahendra.models.Account;
 
 import io.opentelemetry.instrumentation.annotations.SpanAttribute;
@@ -31,13 +32,12 @@ public class AccountService {
 	
 	
 	@WithSpan("deposit")
-	public boolean deposit(@SpanAttribute("acc-no") String accNo, @SpanAttribute("amount")double amount) {
+	public void deposit(@SpanAttribute("acc-no") String accNo, @SpanAttribute("amount")double amount) {
 		Account acc = findAccount(accNo);
-		if(acc != null ) {
-			acc.setBalance(acc.getBalance()+amount);
-			return true;
+		if(acc == null ) {
+			throw new NonExistingAccountException(accNo);			
 		}
-		return false;
+		acc.setBalance(acc.getBalance()+amount);
 	}
 	
 }
