@@ -12,6 +12,10 @@ import org.springframework.web.client.RestTemplate;
 import com.mahendra.models.Address;
 import com.mahendra.models.Customer;
 
+import io.opentelemetry.api.trace.SpanKind;
+import io.opentelemetry.instrumentation.annotations.SpanAttribute;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 @RestController
 @RequestMapping("/api/customer")
 public class CustomerResource {
@@ -20,7 +24,8 @@ public class CustomerResource {
 	@Value("${addressservice.endpoint}") private String addressEndpoint;
 	
 	@GetMapping(value="/{ID}", produces="application/json")
-	public ResponseEntity<Customer> findCustomer(@PathVariable("ID") int id )
+	@WithSpan(value = "find-customer")
+	public ResponseEntity<Customer> findCustomer(@SpanAttribute("CustId") @PathVariable("ID") int id )
 	{
 		delayProcessing(2);
 		if(id >=1 && id <=5) {
