@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mahendra.models.Deposit;
 import com.mahendra.services.DepositService;
+
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -24,6 +27,7 @@ public class DepositResource {
 	@Autowired private DepositService svc;
 	
 	@GetMapping(value="/{accnum}", produces = "application/json")
+	@WithSpan("find-deposit-api")
 	public ResponseEntity<Deposit> findByAccNum(@PathVariable("accnum") String accNum){
 		Optional<Deposit> dep = svc.findByAccNum(accNum);
 		
@@ -34,6 +38,7 @@ public class DepositResource {
 	}
 	
 	@PostMapping(consumes = "application/json")
+	@WithSpan("create-deposit-api")
 	public ResponseEntity<String> save(@RequestBody Deposit deposit) {
 		try {
 		svc.create(deposit);

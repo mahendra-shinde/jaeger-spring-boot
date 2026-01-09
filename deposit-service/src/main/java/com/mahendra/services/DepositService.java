@@ -1,6 +1,5 @@
 package com.mahendra.services;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.mahendra.data.DepositRepository;
 import com.mahendra.models.Deposit;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import jakarta.annotation.PostConstruct;
 
 @Service
@@ -27,16 +27,17 @@ public class DepositService {
 	}
 	
 	
+	@WithSpan("create-deposit-srv")
 	public void create(Deposit dep) {
 		dao.save(dep);
 	}
 	
-	
+	@WithSpan("find-deposit-srv")
 	public Optional<Deposit> findByAccNum(String accNum) {
 		return dao.findById(accNum);
 	}
 	
-	
+	@WithSpan("find-all-srv")
 	public List<Deposit> findAll(){
 		return dao.findAll();
 	}
