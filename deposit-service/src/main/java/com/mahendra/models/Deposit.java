@@ -18,7 +18,7 @@ public class Deposit {
 	@Temporal(TemporalType.DATE)
 	private Date issueDate;
 	
-	@Column(name="amount_invested", precision = 2, scale = 10)
+	@Column(name="amount_invested")
 	private Double amount;
 
 	public String getAccNum() {
